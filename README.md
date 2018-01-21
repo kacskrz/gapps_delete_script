@@ -10,3 +10,4 @@ Batch script, works fine on Windows (tested by Win8.1). Linux - in the future.
 - Move file gapps.bat to ADB directory and run it.
 
 Menu is in Polish language, but English language arise in the future :)
+Link into package from ADB: http://oocca.mizure.net/~orjon/xiaomi_tools/gapps_delete.zip
