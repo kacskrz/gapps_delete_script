@@ -5,7 +5,8 @@ echo ----------------
 echo Deinstalator apek Google
 echo skrypt by Orjon / Forum MIUIPolska.pl
 echo ----------------
-echo Wybierz apke z listy
+echo Wybierz apke z listy, wpisujac odpowiednia cyfre i naciskajac enter.
+echo Pamietaj o wlaczeniu debugowania USB i podpieciu telefonu do komputera!
 echo ----------------
 echo.
 echo 1) Google Chrome
