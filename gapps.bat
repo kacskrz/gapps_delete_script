@@ -25,8 +25,9 @@ echo 14) Keep
 echo 15) Hangouts
 echo 16) Ksiazki Google Play
 echo 17) Dysk Google
-echo 18) Sprawdzenie, czy telefon jest podlaczony
-echo 19) Wyjscie z skryptu
+echo 18) Google Talkback
+echo 19) Sprawdzenie, czy telefon jest podlaczony
+echo 20) Wyjscie z skryptu
 echo.
 set /p opcja=wybierz:
 if %opcja%==1 goto opcja1
@@ -46,8 +47,9 @@ if %opcja%==14 goto opcja14
 if %opcja%==15 goto opcja15
 if %opcja%==16 goto opcja16
 if %opcja%==17 goto opcja17
-if %opcja%==18 goto opcja18
-if %opcja%==19 exit
+if %opcja%==18 goto talkback
+if %opcja%==19 goto opcja18
+if %opcja%==20 exit
 goto zly_wybor
 :opcja1
 cls
@@ -228,6 +230,17 @@ goto poczatek
 :opcja17
 cls
 adb shell pm uninstall -k --user 0 com.google.android.apps.docs | findstr /e "Success" > NUL
+IF %ERRORLEVEL% EQU 0 (
+	echo Aplikacja zostala pomyslnie odinstalowana z urzadzenia.
+)
+IF %ERRORLEVEL% EQU 1 ( echo Wystapil blad przy deinstalacji aplikacji.
+@echo.
+echo Aplikacja nie jest zainstalowana w telefonie, telefon nie jest podlaczony do komputera badz wystapil jakis inny, nieznany blad.)
+pause
+goto poczatek
+:talkback
+cls
+adb shell pm uninstall -k --user 0 com.google.android.marvin.talkback | findstr /e "Success" > NUL
 IF %ERRORLEVEL% EQU 0 (
 	echo Aplikacja zostala pomyslnie odinstalowana z urzadzenia.
 )
