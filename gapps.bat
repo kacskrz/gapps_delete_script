@@ -29,8 +29,12 @@ echo 17) Dysk Google
 echo 18) Google Talkback
 echo 19) Filmy Google Play
 echo 20) Pogoda MIUI
-echo 21) Sprawdzenie, czy telefon jest podlaczony
-echo 22) Wyjscie z skryptu
+echo 21) Przegladarka MIUI
+echo 22) Opinie MIUI
+echo 23) Muzyka MIUI
+echo 24) Mi Wideo
+echo 25) Sprawdzenie, czy telefon jest podlaczony
+echo E) Wyjscie z skryptu
 echo.
 set /p opcja=wybierz:
 if %opcja%==1 goto opcja1
@@ -53,8 +57,12 @@ if %opcja%==17 goto opcja17
 if %opcja%==18 goto talkback
 if %opcja%==19 goto videos
 if %opcja%==20 goto weather
-if %opcja%==21 goto opcja18
-if %opcja%==22 exit
+if %opcja%==21 goto opt21
+if %opcja%==22 goto opt22
+if %opcja%==23 goto opt23
+if %opcja%==24 goto opt24
+if %opcja%==25 goto opcja18
+if %opcja%==E exit
 goto zly_wybor
 :opcja1
 cls
@@ -276,6 +284,50 @@ IF %ERRORLEVEL% EQU 1 ( echo Wystapil blad przy deinstalacji aplikacji.
 echo Aplikacja nie jest zainstalowana w telefonie, telefon nie jest podlaczony do komputera badz wystapil jakis inny, nieznany blad.)
 pause
 goto poczatek
+:opt21
+cls
+adb shell pm uninstall -k --user 0 com.android.browser | findstr /e "Success" > NUL
+IF %ERRORLEVEL% EQU 0 (
+	echo Aplikacja zostala pomyslnie odinstalowana z urzadzenia.
+)
+IF %ERRORLEVEL% EQU 1 ( echo Wystapil blad przy deinstalacji aplikacji.
+@echo.
+echo Aplikacja nie jest zainstalowana w telefonie, telefon nie jest podlaczony do komputera badz wystapil jakis inny, nieznany blad.)
+pause
+goto poczatek
+:opt22
+cls
+adb shell pm uninstall -k --user 0 com.miui.bugreport | findstr /e "Success" > NUL
+IF %ERRORLEVEL% EQU 0 (
+	echo Aplikacja zostala pomyslnie odinstalowana z urzadzenia.
+)
+IF %ERRORLEVEL% EQU 1 ( echo Wystapil blad przy deinstalacji aplikacji.
+@echo.
+echo Aplikacja nie jest zainstalowana w telefonie, telefon nie jest podlaczony do komputera badz wystapil jakis inny, nieznany blad.)
+pause
+goto poczatek
+:opt23
+cls
+adb shell pm uninstall -k --user 0 com.miui.player | findstr /e "Success" > NUL
+IF %ERRORLEVEL% EQU 0 (
+	echo Aplikacja zostala pomyslnie odinstalowana z urzadzenia.
+)
+IF %ERRORLEVEL% EQU 1 ( echo Wystapil blad przy deinstalacji aplikacji.
+@echo.
+echo Aplikacja nie jest zainstalowana w telefonie, telefon nie jest podlaczony do komputera badz wystapil jakis inny, nieznany blad.)
+pause
+goto poczatek
+:opt24
+cls
+adb shell pm uninstall -k --user 0 com.miui.video | findstr /e "Success" > NUL
+IF %ERRORLEVEL% EQU 0 (
+	echo Aplikacja zostala pomyslnie odinstalowana z urzadzenia.
+)
+IF %ERRORLEVEL% EQU 1 ( echo Wystapil blad przy deinstalacji aplikacji.
+@echo.
+echo Aplikacja nie jest zainstalowana w telefonie, telefon nie jest podlaczony do komputera badz wystapil jakis inny, nieznany blad.)
+pause
+goto poczatek
 :opcja18
 cls
 adb %* devices | findstr /e "device" > NUL
@@ -298,6 +350,6 @@ echo Telefon zostal wykryty.
 pause
 goto poczatek
 :zly_wybor
-echo Skrypt jest madry, ale tej opcji jeszcze nie poznal. O co Tobie chodzilo? Sprobuj ponownie.
+echo Skrypt byc moze jest madry (przynajmniej tak twierdzi jego autor), ale tej opcji jeszcze nie poznal. O co Tobie chodzilo? Sprobuj ponownie.
 pause
 goto poczatek
