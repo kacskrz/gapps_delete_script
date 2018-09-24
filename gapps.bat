@@ -33,7 +33,8 @@ echo 21) Przegladarka MIUI
 echo 22) Opinie MIUI
 echo 23) Muzyka MIUI
 echo 24) Mi Wideo
-echo 25) Sprawdzenie, czy telefon jest podlaczony
+echo 25) MSA
+echo 26) Sprawdzenie, czy telefon jest podlaczony
 echo E) Wyjscie z skryptu
 echo.
 set /p opcja=wybierz:
@@ -61,7 +62,8 @@ if %opcja%==21 goto opt21
 if %opcja%==22 goto opt22
 if %opcja%==23 goto opt23
 if %opcja%==24 goto opt24
-if %opcja%==25 goto opcja18
+if %opcja%==25 goto opt25
+if %opcja%==26 goto opcja18
 if %opcja%==E exit
 goto zly_wybor
 :opcja1
@@ -320,6 +322,17 @@ goto poczatek
 :opt24
 cls
 adb shell pm uninstall -k --user 0 com.miui.video | findstr /e "Success" > NUL
+IF %ERRORLEVEL% EQU 0 (
+	echo Aplikacja zostala pomyslnie odinstalowana z urzadzenia.
+)
+IF %ERRORLEVEL% EQU 1 ( echo Wystapil blad przy deinstalacji aplikacji.
+@echo.
+echo Aplikacja nie jest zainstalowana w telefonie, telefon nie jest podlaczony do komputera badz wystapil jakis inny, nieznany blad.)
+pause
+goto poczatek
+:opt25
+cls
+adb shell pm uninstall -k --user 0 com.miui.msa.global | findstr /e "Success" > NUL
 IF %ERRORLEVEL% EQU 0 (
 	echo Aplikacja zostala pomyslnie odinstalowana z urzadzenia.
 )
