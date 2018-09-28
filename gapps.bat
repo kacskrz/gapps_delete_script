@@ -58,7 +58,7 @@ if %opcja%==17 goto opcja17
 if %opcja%==18 goto talkback
 if %opcja%==19 goto videos
 if %opcja%==20 goto weather
-if %opcja%==21 goto opt21
+if %opcja%==21 goto browser1
 if %opcja%==22 goto opt22
 if %opcja%==23 goto opt23
 if %opcja%==24 goto opt24
@@ -286,7 +286,7 @@ IF %ERRORLEVEL% EQU 1 ( echo Wystapil blad przy deinstalacji aplikacji.
 echo Aplikacja nie jest zainstalowana w telefonie, telefon nie jest podlaczony do komputera badz wystapil jakis inny, nieznany blad.)
 pause
 goto poczatek
-:opt21
+:browser1
 cls
 adb shell pm uninstall -k --user 0 com.android.browser | findstr /e "Success" > NUL
 IF %ERRORLEVEL% EQU 0 (
