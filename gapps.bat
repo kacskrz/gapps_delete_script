@@ -35,7 +35,8 @@ echo 23) Muzyka MIUI
 echo 24) Mi Wideo
 echo 25) MSA
 echo 26) Mi Drop
-echo 27) Sprawdzenie, czy telefon jest podlaczony
+echo 27) Poczta MIUI
+echo 28) Sprawdzenie, czy telefon jest podlaczony
 echo E) Wyjscie z skryptu
 echo.
 set /p opcja=wybierz:
@@ -65,7 +66,8 @@ if %opcja%==23 goto opt23
 if %opcja%==24 goto opt24
 if %opcja%==25 goto opt25
 if %opcja%==26 goto mi_drop
-if %opcja%==27 goto opcja18
+if %opcja%==27 goto email1
+if %opcja%==28 goto opcja18
 if %opcja%==E exit
 goto zly_wybor
 :opcja1
@@ -346,6 +348,17 @@ goto poczatek
 :mi_drop
 cls
 adb shell pm uninstall -k --user 0 com.xiaomi.midrop | findstr /e "Success" > NUL
+IF %ERRORLEVEL% EQU 0 (
+	echo Aplikacja zostala pomyslnie odinstalowana z urzadzenia.
+)
+IF %ERRORLEVEL% EQU 1 ( echo Wystapil blad przy deinstalacji aplikacji.
+@echo.
+echo Aplikacja nie jest zainstalowana w telefonie, telefon nie jest podlaczony do komputera badz wystapil jakis inny, nieznany blad.)
+pause
+goto poczatek
+:email1
+cls
+adb shell pm uninstall -k --user 0 com.android.email | findstr /e "Success" > NUL
 IF %ERRORLEVEL% EQU 0 (
 	echo Aplikacja zostala pomyslnie odinstalowana z urzadzenia.
 )
