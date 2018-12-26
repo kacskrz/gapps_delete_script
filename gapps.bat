@@ -1,4 +1,10 @@
 @ECHO OFF&PUSHD %~DP0 &TITLE Deinstalator apek Google by Orjon
+IF EXIST adb.exe (
+goto poczatek )
+IF NOT EXIST adb.exe ( echo Skrypt nie moze zostac uruchomiony, poniewaz w pakiecie nie znajduje sie plik adb.exe, niezbedny do komunikacji pomiedzy komputerem a telefonem. 
+echo Sciagnij tenze plik, np. w pakiecie Minimal ADB and Fastboot, i przenies do folderu z nim ten skrypt, a nastepnie uruchom go ponownie.
+pause
+exit )
 :poczatek
 cls
 echo ----------------
@@ -36,7 +42,10 @@ echo 24) Mi Wideo
 echo 25) MSA
 echo 26) Mi Drop
 echo 27) Poczta MIUI
-echo 28) Sprawdzenie, czy telefon jest podlaczony
+echo 28) Menedzer Plikow MIUI
+echo 29) Quick Apps MIUI
+echo 30) Mi Credit
+echo 31) Sprawdzenie, czy telefon jest podlaczony
 echo E) Wyjscie z skryptu
 echo.
 set /p opcja=wybierz:
@@ -67,7 +76,10 @@ if %opcja%==24 goto opt24
 if %opcja%==25 goto opt25
 if %opcja%==26 goto mi_drop
 if %opcja%==27 goto email1
-if %opcja%==28 goto opcja18
+if %opcja%==28 goto explorer
+if %opcja%==29 goto hybrid
+if %opcja%==30 goto credit
+if %opcja%==31 goto opcja18
 if %opcja%==E exit
 goto zly_wybor
 :opcja1
@@ -359,6 +371,39 @@ goto poczatek
 :email1
 cls
 adb shell pm uninstall -k --user 0 com.android.email | findstr /e "Success" > NUL
+IF %ERRORLEVEL% EQU 0 (
+	echo Aplikacja zostala pomyslnie odinstalowana z urzadzenia.
+)
+IF %ERRORLEVEL% EQU 1 ( echo Wystapil blad przy deinstalacji aplikacji.
+@echo.
+echo Aplikacja nie jest zainstalowana w telefonie, telefon nie jest podlaczony do komputera badz wystapil jakis inny, nieznany blad.)
+pause
+goto poczatek
+:explorer
+cls
+adb shell pm uninstall -k --user 0 com.android.fileexplorer | findstr /e "Success" > NUL
+IF %ERRORLEVEL% EQU 0 (
+	echo Aplikacja zostala pomyslnie odinstalowana z urzadzenia.
+)
+IF %ERRORLEVEL% EQU 1 ( echo Wystapil blad przy deinstalacji aplikacji.
+@echo.
+echo Aplikacja nie jest zainstalowana w telefonie, telefon nie jest podlaczony do komputera badz wystapil jakis inny, nieznany blad.)
+pause
+goto poczatek
+:hybrid
+cls
+adb shell pm uninstall -k --user 0 com.miui.hybrid | findstr /e "Success" > NUL
+IF %ERRORLEVEL% EQU 0 (
+	echo Aplikacja zostala pomyslnie odinstalowana z urzadzenia.
+)
+IF %ERRORLEVEL% EQU 1 ( echo Wystapil blad przy deinstalacji aplikacji.
+@echo.
+echo Aplikacja nie jest zainstalowana w telefonie, telefon nie jest podlaczony do komputera badz wystapil jakis inny, nieznany blad.)
+pause
+goto poczatek
+:credit
+cls
+adb shell pm uninstall -k --user 0 com.xiaomi.payment | findstr /e "Success" > NUL
 IF %ERRORLEVEL% EQU 0 (
 	echo Aplikacja zostala pomyslnie odinstalowana z urzadzenia.
 )
