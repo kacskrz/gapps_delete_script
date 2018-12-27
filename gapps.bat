@@ -45,7 +45,8 @@ echo 27) Poczta MIUI
 echo 28) Menedzer Plikow MIUI
 echo 29) Quick Apps MIUI
 echo 30) Mi Credit
-echo 31) Sprawdzenie, czy telefon jest podlaczony
+echo 31) Menedzer Plikow MIUI (z Google Play)
+echo 32) Sprawdzenie, czy telefon jest podlaczony
 echo E) Wyjscie z skryptu
 echo.
 set /p opcja=wybierz:
@@ -79,7 +80,8 @@ if %opcja%==27 goto email1
 if %opcja%==28 goto explorer
 if %opcja%==29 goto hybrid
 if %opcja%==30 goto credit
-if %opcja%==31 goto opcja18
+if %opcja%==31 goto explorer_global
+if %opcja%==32 goto opcja18
 if %opcja%==E exit
 goto zly_wybor
 :opcja1
@@ -404,6 +406,17 @@ goto poczatek
 :credit
 cls
 adb shell pm uninstall -k --user 0 com.xiaomi.payment | findstr /e "Success" > NUL
+IF %ERRORLEVEL% EQU 0 (
+	echo Aplikacja zostala pomyslnie odinstalowana z urzadzenia.
+)
+IF %ERRORLEVEL% EQU 1 ( echo Wystapil blad przy deinstalacji aplikacji.
+@echo.
+echo Aplikacja nie jest zainstalowana w telefonie, telefon nie jest podlaczony do komputera badz wystapil jakis inny, nieznany blad.)
+pause
+goto poczatek
+:explorer_global
+cls
+adb shell pm uninstall -k --user 0 com.mi.android.globalFileexplorer | findstr /e "Success" > NUL
 IF %ERRORLEVEL% EQU 0 (
 	echo Aplikacja zostala pomyslnie odinstalowana z urzadzenia.
 )
